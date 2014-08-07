@@ -32,8 +32,8 @@ mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
 
 var user = mongoose.Schema({
-	id: String,
-	name: String
+	login: String,
+	password: String
 });
 
 function add(obj){
