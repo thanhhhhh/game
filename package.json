@@ -1,0 +1,19 @@
+{
+  "name": "game-master",
+  "version": "0.0.0",
+  "description": "web based game, learning phase",
+  "main": "auth.js",
+  "dependencies": {
+    "express": "^4.8.1",
+    "node-static": "^0.7.4",
+    "mongoose": "^3.8.14",
+    "socket.io": "^1.0.6",
+    "body-parser": "^1.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tom nguyen",
+  "license": "ISC"
+}

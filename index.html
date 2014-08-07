@@ -2,10 +2,26 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
 		<script src="js/login.js"></script>
+		 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	</head>
-	<body ng-controller="loginController">
-		<h1>{{msg}}</h1>
-		<input type="text" ng-model="nameText"></input>
-		<button ng-click="test()">Send</button
+
+	<body>
+		<div>
+			<h1>HEADER</h1>
+		</div>
+		<div ng-controller="loginController">
+			<div>
+				<h1>{{existingTitle}}</h1>
+				<input type="text" ng-model="eLogin" placeholder="email"></input>
+				<input type="password" ng-model="ePassword"></input>
+				<button ng-click="login('E')">Register</button
+			</div><div>
+				<h1>{{newTitle}}</h1>
+				<input type="text" ng-model="nLogin" placeholder="email"></input>
+				<input type="password" ng-model="nPassword"></input>
+				<button ng-click="login('N')">Login</button
+			</div>
+		</div>
 	</body>
+
 </html>

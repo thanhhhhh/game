@@ -39,7 +39,7 @@ var user = mongoose.Schema({
 function add(obj){
 	var User = mongoose.model('User',user);
 
-	var sil = new User({"name": obj.name,"id": obj.id});
+	var sil = new User({"login": obj.login,"password": obj.password});
 	sil.save(function(err){
 		if (err) {
 			console.log("Error saveing");
