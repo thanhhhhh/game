@@ -1,15 +1,13 @@
 var app = angular.module('scramblerApp',[]);
 
 app.controller('loginController',['$scope','$http',function($scope,$http){
-	$scope.newTitle = "Login";
-	$scope.existingTitle = "Returning";
+	$scope.newTitle = "New Player";
+	$scope.returnTitle = "Returning";
 	$scope.login = function(v){
-
-
 		var data = {
-			newplayer: (v == "N" ? "N" : "Y"),
-			login: (v == "N" ? $scope.nLogin : $scope.eLogin),
-			password: (v == "E" ? $scope.ePassword : $scope.nPassword),
+			newplayer: (v == "N" ? "Y" : "N"),
+			login: (v == "N" ? $scope.nLogin : $scope.rLogin),
+			password: (v == "N" ? $scope.nPassword : $scope.rPassword),
 		}
 
 		$http.post('/login',data).
