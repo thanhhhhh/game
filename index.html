@@ -22,7 +22,7 @@
 							$('#rNotifyArea').html("");
 						}, 3000);
 						break;
-				}
+				}q
 			});
 		</script>
 	</head>
@@ -35,21 +35,36 @@
 				</div>
 			</div>
 		</div>
-		<div ng-controller="loginController" class="container-fluid">
-			<div class="row">
-				<div class="col-md-6">
-					<h1>{{newTitle}}</h1>
-					<input type="text" ng-model="nLogin" placeholder="email"></input>
-					<input type="password" ng-model="nPassword" placeholder="password"></input>
-					<button ng-click="login('N')">Register</button>
-					<div id="nNotifyArea"></div>
+		<div ng-controller="launchController">
+			<div class="container-fluid" ng-show="loginView">
+				<div class="row">
+					<div class="col-md-6">
+						<h1>{{newTitle}}</h1>
+						<input type="text" ng-model="nLogin" placeholder="username"></input>
+						<input type="password" ng-model="nPassword" placeholder="password"></input>
+						<button ng-click="login('N')">Register</button>
+						<div id="nNotifyArea">{{nNotifyArea}}</div>
+					</div>
+					<div class="col-md-6">
+						<h1>{{returnTitle}}</h1>
+						<input type="text" ng-model="rLogin" placeholder="username"></input>
+						<input type="password" ng-model="rPassword" placeholder="password"></input>
+						<button ng-click="login('R')">Login</button>
+						<div id="rNotifyArea">{{rNotifyArea}}</div>
+					</div>
 				</div>
-				<div class="col-md-6">
-					<h1>{{returnTitle}}</h1>
-					<input type="text" ng-model="rLogin" placeholder="email"></input>
-					<input type="password" ng-model="rPassword" placeholder="password"></input>
-					<button ng-click="login('R')">Login</button>
-					<div id="rNotifyArea"></div>
+			</div>
+			<div class="container-fluid" ng-show="launchView">
+				<div class="row">
+					<div class="col-md-6">
+						<h1>Start Game</h1>
+						<button ng-click="login('N')">Start</button>
+					</div>
+					<div class="col-md-6">
+						<h1>Join Game</h1>
+						<input type="text" placeholder="game id"></input>
+						<button>Join</button>
+					</div>
 				</div>
 			</div>
 		</div>

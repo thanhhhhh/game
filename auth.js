@@ -4,6 +4,7 @@ var path = require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
+var test = require('./server_scripts/db.js')();
 
 app.use(bodyParser.json());
 
@@ -12,12 +13,13 @@ app.get('/',function(req,res,next){
 })
 
 app.post('/login',function(req,res){
+	test.func1();
 	if (req.body["newplayer"] == "Y"){
-		add(req.body);
+		add(req.body,res);
 	} else {
-		login(req.body);
-	}
-	 
+		//login(req.body);
+		login(req.body,res);
+	} 
 });
  
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,52 +40,30 @@ var user = mongoose.Schema({
 });
 var UserModel = mongoose.model('users',user);
 
-function add(obj){
+function add(obj,res){
 	
 	var sil = new UserModel({"login": obj.login,"password": obj.password});
 	sil.save(function(err){
 		if (err) {
-			io.emit(
-				'loginMsg',
-				{
-					type :"add",
-					msg  :"Error occured in registration, try again.",
-					servermsg : err
-				}
-			);
+			if(err.code == 11000){
+				res.send({type:"register",msg: "Username already taken.  Pick another.",code: 4, sys: err});
+			} else {
+				res.send({type:"register",msg: "Registration failed.  Please try again.",code: 5, sys: err});
+			}
+			 
 		} else {
-			io.emit(
-				'loginMsg',
-				{
-					type :"add",
-					msg  :"Registration Successful!",
-					servermsg : err
-				}
-			);
+			res.send({type:"register",msg: "sucess!",code: 3, sys:err});
 		}
 	});
 	 
 }
 
-function login(obj){
-
-	UserModel.find({"login": obj.login,"password": obj.password},function (err,users){
+function login(obj,res){
+	UserModel.find({"login": obj.login,"password": obj.password},{login:1,_id:0,password:1},function (err,users){
 		if (users.length == 0){
-			io.emit(
-				'loginMsg',
-				{
-					type :"login",
-					msg  :"You do not exist, register!"
-				}
-			);
+			res.send({type:"login",msg: "fail!",code:1,sys:err,users:users});
 		} else {
-			io.emit(
-				'loginMsg',
-				{
-					type :"login",
-					msg  :"Login successful!"
-				}
-			);
+			res.send({type:"login",msg:"loginSuccess!",code:0,sys:err,users:users});
 		}
 	});
 }
