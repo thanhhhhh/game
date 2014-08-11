@@ -1,12 +1,12 @@
 var app = angular.module('scramblerApp',[]);
 
-
-
 app.controller('launchController',['$scope','$http',function($scope,$http){
 	$scope.newTitle = "New Player";
 	$scope.returnTitle = "Returning";
 	$scope.rNotifyArea = "";
 	$scope.nNotifyArea = "";
+	$scope.gameId = "";
+	$scope.joinGameId = "";
 	$scope.loginView = true;
 	$scope.launchView = false;
 
@@ -22,7 +22,7 @@ app.controller('launchController',['$scope','$http',function($scope,$http){
 				if(data.type=="login"){
 					//request is a login
 					$scope.rNotifyArea = data.msg;
-					if (data.users.length != 0){
+					if (data.code == 0){
 						$scope.loginView = false;
 						$scope.launchView = true;
 					}
@@ -37,6 +37,39 @@ app.controller('launchController',['$scope','$http',function($scope,$http){
 			}).
 			error(function(data,status,headers,config){
 				alert("A System error occured");
-		});
+			});
+	}
+
+	$scope.createGame = function(){
+		var data = {
+			game_id: $scope.gameId,
+			scramble: "test",
+			answer: "test",
+			leader: "test",
+			game_status: "running"
+		}
+		$http.post('/newgame',data).
+			success(function(data,status,headers,config){
+
+			}).
+			error(function(){
+
+			});
+		 
+	}
+
+	$scope.joinGame = function(){
+		var data = {
+			game_id: $scope.gameId,
+			player: "test"
+		}
+		$http.post('/joingame',data).
+			success(function(data,status,headers,config){
+
+			}).
+			error(function(){
+
+			});
+		 
 	}
 }]);

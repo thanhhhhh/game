@@ -1,5 +1,5 @@
 0	Login success
 1	Login failed
 3	Regisration success
-4	Registration fail, Dupe login(username or email) found
+4	Registration fail, Dupe login(username or email) found 
 5	Registration fail, reason other
